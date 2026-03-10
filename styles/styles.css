@@ -1,0 +1,70 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "League Spartan", sans-serif;
+    font-optical-sizing: auto;
+}
+
+main {
+    display: grid;
+    grid-template-areas:
+        'appTitle themeToggler'
+        'calculatorScreen calculatorScreen'
+        'calculatorButtonsContainer calculatorButtonsContainer'
+    ;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+}
+
+#calculator-container .appTitle {
+    grid-area: appTitle;
+}
+
+#calculator-container .themeToggler {
+    grid-area: themeToggler;
+}
+
+#calculator-container .calculatorScreen {
+    grid-area: calculatorScreen;
+    text-align: right;
+}
+
+#calculator-container .calculatorButtonsContainer {
+    grid-area: calculatorButtonsContainer;
+    padding: 20px;
+}
+
+#calculator-container .calculatorButtons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+
+/* Mobile design - theme 1 */
+
+.designThemeOne {
+    background-color: hsl(222, 26%, 31%);
+}
+
+.designThemeOne h1 {
+    color: white;
+}
+
+.designThemeOne .calculatorScreen {
+    color: white;
+    background-color: hsl(224, 36%, 15%);
+}
+
+.designThemeOne .calculatorButtonsContainer {
+    background-color: hsl(223, 31%, 20%);
+}
+
+
+
+
+
+
+.hide {
+    display: none;
+}
