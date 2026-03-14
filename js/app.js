@@ -3,7 +3,6 @@ let themeTwo = document.getElementById('themeTwoDial')
 let themeThree = document.getElementById('themeThreeDial')
 const del = document.getElementById('del')
 
-
 function switchDials() {
     if (themeOne.checked && !themeTwo.checked && !themeThree.checked) {
         themeOne.checked = false

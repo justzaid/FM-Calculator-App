@@ -17,57 +17,92 @@ main {
         'calculatorButtons calculatorButtons'
     ;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 5fr 20fr;
-    padding: 22px;
-    height: 100vh;
+    grid-template-rows: auto auto 1fr;
+    padding: 20px;
+    min-height: 100vh;
 }
 
-#calculator-container .appTitle {
+.appTitle {
     grid-area: appTitle;
+    display: flex;
+    align-items: center;
 }
 
-#calculator-container .appTitle h1 {
-    margin: 10px;
+.appTitle h1 {
+    margin-left: 6px;
 }
 
-#calculator-container .themeToggler {
+.themeIdentifier {
     grid-area: themeToggler;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    margin-bottom: 2px;
 }
 
-#calculator-container .themeToggler h5 {
-    color: white;
-    margin-right: 20px;
+.themeIdentifier h5 {
+    margin-right: 8px;
+    margin-bottom: 12px;
+    font-size: 12px;
 }
 
-#calculator-container .themeSwitch {
-    border-radius: 10px;
+.themeControl {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 6px;
+    margin-top: -8px;
+}
+
+.themeLabels {
     display: flex;
     justify-content: space-between;
-    width: 60px;
+    width: 50px;
+    font-size: 10px;
 }
 
-#calculator-container .themeSwitch input{
-    margin: 2px;
+.themeSwitch {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 6px;
+    padding: 4px;
+    width: 70px;
+    height: 22px;
+    border-radius: 20px;
 }
 
-#calculator-container .calculatorScreen {
+.themeSwitch input{
+    margin: 0;
+    padding: 0;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+}
+
+.themeSwitch input:nth-child(2) {
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+.calculatorScreen {
     grid-area: calculatorScreen;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     max-height: 84px;
     border-radius: 10px;
-    font-size: 28px;
+    font-size: 26px;
+    margin-bottom: 20px;
 }
 
 #calculator-container h2 {
     margin-right: 20px;
+    margin-bottom: 14px;
 }
 
-#calculator-container .calculatorButtons {
+.calculatorButtonsContainer {
     display: grid;
     grid-area: calculatorButtons;
     grid-template-columns: repeat(4, 1fr);
@@ -76,33 +111,35 @@ main {
     border-radius: 10px;
     padding: 22px;
     gap: 14px;
+    max-height: 428px;
 }
 
 .btn {
     padding-top: 8px;
     width: 100%;
-    height: 68px;
+    aspect-ratio: 1 / 1;
     border-radius: 5px;
     font-size: 32px;
-    font-weight: bold;
+    font-weight: 700;
     border: none;
 }
 
 #del {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .resetBtn {
     grid-column: span 2;
+    aspect-ratio: 2 /1;
     font-size: 20px;
-    height: 60px;
 }
 
 .equalToBtn {
     grid-column: span 2;
     font-size: 20px;
-    height: 60px;
+    aspect-ratio: 2 / 1;
 }
+
 
 
 
@@ -117,8 +154,22 @@ main {
     color: white;
 }
 
-#calculator-container .themeSwitch {
+.designThemeOne .themeIdentifier h5 {
+    color: white;
+    letter-spacing: 1px;
+}
+
+.designThemeOne .themeLabels {
+    color: white;
+    font-weight: 600;
+}
+
+.designThemeOne .themeSwitch {
     background-color: hsl(223, 31%, 20%);
+}
+
+.designThemeOne .themeSwitch input:checked {
+    background: hsl(6, 63%, 50%);
 }
 
 .designThemeOne .calculatorScreen {
@@ -126,34 +177,161 @@ main {
     background-color: hsl(224, 36%, 15%);
 }
 
-.btn {
+.designThemeOne .calculatorButtonsContainer {
+    background-color: hsl(223, 31%, 20%);
+}
+
+.designThemeOne .btn {
     color: hsl(221, 14%, 31%);
     background-color: hsl(0, 0%, 90%);
     box-shadow: 0px 4px hsl(28, 16%, 65%);
 }
 
-#calculator-container .calculatorButtons {
-    background-color: hsl(223, 31%, 20%);
-}
-
-#del {
+.designThemeOne #del {
     color: white;
     background-color: hsl(225, 21%, 49%);
     box-shadow: 0px 5px hsl(224, 28%, 35%);
 }
 
-.resetBtn {
+.designThemeOne .resetBtn {
     color: white;
     background-color: hsl(225, 21%, 49%);
     box-shadow: 0px 5px hsl(224, 28%, 35%);
 }
 
-.equalToBtn {
+.designThemeOne .equalToBtn {
     color: white;
     background-color: hsl(6, 63%, 50%);
     box-shadow: 0px 5px hsl(6, 70%, 34%);
 
 }
+
+
+/* Mobile design - theme 2 */
+
+.designThemeTwo {
+    background-color: hsl(0, 0%, 90%);
+}
+
+.designThemeTwo h1 {
+    color: hsl(60, 10%, 19%);
+}
+
+.designThemeTwo .themeIdentifier h5 {
+    color: hsl(60, 10%, 19%);
+}
+
+.designThemeTwo .themeLabels {
+    color: hsl(60, 10%, 19%);
+    font-weight: 800;
+}
+
+.designThemeTwo .themeSwitch {
+    background-color: hsl(0, 5%, 81%);
+}
+
+.designThemeTwo .themeSwitch input:checked {
+    background: hsl(25, 98%, 40%);
+}
+
+.designThemeTwo .calculatorScreen {
+    color: hsl(60, 10%, 19%);
+    background-color: hsl(0, 0%, 93%);
+}
+
+.designThemeTwo .btn {
+    color: hsl(60, 10%, 19%);
+    background-color: hsl(0, 0%, 90%);
+    box-shadow: 0px 4px hsl(35, 11%, 61%);
+}
+
+.designThemeTwo .calculatorButtonsContainer {
+    background-color: hsl(0, 5%, 81%);
+}
+
+.designThemeTwo #del {
+    color: white;
+    background-color: hsl(185, 42%, 37%);
+    box-shadow: 0px 5px hsl(185, 58%, 25%);
+}
+
+.designThemeTwo .resetBtn {
+    color: white;
+    background-color: hsl(185, 42%, 37%);
+    box-shadow: 0px 5px hsl(185, 58%, 25%);
+}
+
+.designThemeTwo .equalToBtn {
+    color: white;
+    background-color: hsl(25, 98%, 40%);
+    box-shadow: 0px 5px hsl(25, 99%, 27%);
+
+}
+
+
+/* Mobile design - theme 3 */
+
+.designThemeThree {
+    background-color: hsl(268, 75%, 9%);
+}
+
+.designThemeThree h1 {
+    color: hsl(52, 100%, 62%);
+}
+
+.designThemeThree .themeIdentifier h5 {
+    color: hsl(52, 100%, 62%);
+}
+
+.designThemeThree .themeLabels {
+    color: hsl(52, 100%, 62%);
+    font-weight: 800;
+}
+
+.designThemeThree .themeSwitch {
+    background-color: hsl(268, 71%, 12%);
+}
+
+.designThemeThree .themeSwitch input:checked {
+    background: hsl(176, 100%, 44%);
+}
+
+.designThemeThree .calculatorScreen {
+    color: hsl(52, 100%, 62%);
+    background-color: hsl(268, 71%, 12%);
+}
+
+.designThemeThree .btn {
+    color: hsl(52, 100%, 62%);
+    background-color: hsl(268, 47%, 21%);
+    box-shadow: 0px 4px hsl(290, 70%, 36%);
+}
+
+.designThemeThree .calculatorButtonsContainer {
+    background-color: hsl(268, 71%, 12%);
+}
+
+.designThemeThree #del {
+    color: white;
+    background-color: hsl(281, 89%, 26%);
+    box-shadow: 0px 5px hsl(285, 91%, 52%);
+}
+
+.designThemeThree .resetBtn {
+    color: white;
+    background-color: hsl(281, 89%, 26%);
+    box-shadow: 0px 5px hsl(285, 91%, 52%);
+}
+
+.designThemeThree .equalToBtn {
+    color: hsl(198, 20%, 13%);
+    background-color: hsl(176, 100%, 44%);
+    box-shadow: 0px 5px hsl(177, 92%, 70%);
+
+}
+
+
+
 
 
 .hide {

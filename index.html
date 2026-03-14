@@ -22,21 +22,26 @@
     <div class="appTitle">
     <h1>calc</h1>
   </div>
-  <div class="themeToggler">
+  <div class="themeIdentifier">
     <h5>THEME</h5>
-    <div class="themeSwitch">
-      <label for="themeOne">1</label>
-      <input type="radio" name="themeOne" id="themeOneDial" checked>
-      <label for="themeTwo">2</label>
-      <input type="radio" name="themeTwo" id="themeTwoDial">
-      <label for="themeThree">3</label>
-      <input type="radio" name="themeThree" id="themeThreeDial">
+    <div class="themeControl">
+      <div class="themeLabels">
+        <label for="themeOneDial">1</label>
+        <label for="themeTwoDial">2</label>
+        <label for="themeThreeDial">3</label>
       </div>
+
+      <div class="themeSwitch">
+        <input type="radio" name="theme" id="themeOneDial" checked>
+        <input type="radio" name="theme" id="themeTwoDial">
+        <input type="radio" name="theme" id="themeThreeDial">
+      </div>
+    </div>
   </div>
   <div class="calculatorScreen">
-    <h2>399,981</h2>
+    <h2 id="screen">399,981</h2>
   </div>
-  <div class="calculatorButtons">
+  <div class="calculatorButtonsContainer">
     <button class="btn" id="seven">7</button>
     <button class="btn" id="eight">8</button>
     <button class="btn" id="nine">9</button>
