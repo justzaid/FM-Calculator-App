@@ -1,30 +1,37 @@
-let themeOne = document.getElementById('themeOneDial')
-let themeTwo = document.getElementById('themeTwoDial')
-let themeThree = document.getElementById('themeThreeDial')
-const del = document.getElementById('del')
+// Cached Elements
+const calculatorContainer = document.getElementById('calculator-container')
+const themeSwitch = document.querySelectorAll('input[name="theme"]')
+const calculatorBtn = document.querySelectorAll('.btn')
+const calcScreen = document.getElementById('screen')
 
-function switchDials() {
-    if (themeOne.checked && !themeTwo.checked && !themeThree.checked) {
-        themeOne.checked = false
-        themeTwo.checked = true
-        return
-    }
-    if (themeTwo.checked && !themeOne.checked && !themeThree.checked) {
-        themeTwo.checked = false
-        themeThree.checked = true
-        return
-    }
-    if (themeThree.checked && !themeOne.checked && !themeTwo.checked) {
-        themeThree.checked = false
-        themeOne.checked = true
-        return
-    }
-    console.log(themeOne.checked)
-}
+// Variables
+let num1;
+let num2;
+let operator;
+
+// Functions
+
+// Theme Switcher
+themeSwitch.forEach((theme) => {
+    theme.addEventListener('change', () => {
+        calculatorContainer.className = theme.value
+    })
+})
 
 
-del.addEventListener('click', switchDials)
+// Button Display
+calculatorBtn.forEach((btn) => {
+    btn.addEventListener('click', (event) => {
+        if (btn.classList.contains('dontPrint')) return
+        
+        if (!num1) {
+            num1 = event.target.id
+            calcScreen.textContent = num1
+        }
 
-
-
-
+        if (!num2) {
+            num2 = event.target.id
+            
+        }
+    })
+})
