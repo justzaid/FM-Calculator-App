@@ -103,15 +103,17 @@ main {
 }
 
 .calculatorButtonsContainer {
-    display: grid;
     grid-area: calculatorButtons;
+    border-radius: 10px;
+}
+
+.calculatorButtonsWrapper {
+    display: grid;
     grid-template-columns: repeat(4, 1fr);
     justify-items: center;
     align-items: center;
-    border-radius: 10px;
     padding: 22px;
     gap: 14px;
-    max-height: 428px;
 }
 
 .btn {
@@ -138,6 +140,10 @@ main {
     grid-column: span 2;
     font-size: 20px;
     aspect-ratio: 2 / 1;
+}
+
+#screen {
+    letter-spacing: 2px;
 }
 
 
