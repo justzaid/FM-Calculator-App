@@ -11,20 +11,22 @@ const deleteButton = document.getElementById('del')
 // Variables
 let num1;
 let num2;
+let num3;
 let operator;
-let result = '';
+let display = '';
 
 
 // Functions
 
 const numberSelectors = (event) => {
-    num1Selector(event)
-    num2Selector(event)
+    if (num1 && operator) {
+        num2Selector(event)
+    } else {
+        num1Selector(event)
+    }
 }
 
 const num1Selector = (event) => {
-    if (num1 && operator) return
-
     if (!num1) {
         if (event.target.id === '.') {
             num1 = `0.`
@@ -33,65 +35,91 @@ const num1Selector = (event) => {
         console.log('num1:', num1)
         }
     } else {
-        num1 += event.target.id
-        console.log('num1:', num1)
+        if (num1.includes('.') && event.target.id === '.') {
+            return
+        } else {
+            num1 += event.target.id
+            console.log('num1:', num1)
+        }
     }
-    result = num1
-    calcScreen.textContent = num1
+    display = num1
+    updateScreen()
 }
 
 const operatorSelector = (event) => {
-    operator = ''
-    result = num1
-
+    if (!num1) return
+    
     operator = event.target.id
-    result += operator
-
+    display = num1 + operator
     console.log('operator:', operator)
-    calcScreen.textContent = result
+    updateScreen()
 }
 
 const num2Selector = (event) => {
-    if (!num1 || !operator) return
     if (!num2) {
-        num2 = event.target.id
-        result += num2
+        if (event.target.id === '.') {
+            num2 = `0.`
+        } else {
+            num2 = event.target.id
+        }
     } else {
-        result += event.target.id
+        if (num2.includes('.') && event.target.id === '.') {
+            return
+        } else {
+            num2 += event.target.id
+        }
     }
-    console.log('num2', num2)
-    calcScreen.textContent = result
+    console.log('num2:', num2)
+    display = num1 + operator + num2
+    console.log('display:', display)
+    updateScreen()
 }
 
 const evaluateResult = () => {
-    result = eval(result)
-    num1 = result
-    calcScreen.textContent = result
-    console.log('num1', num1)
-    num2 = 0
-    operator = ''
+    if (num1 && operator && !num2 || !num1 && !operator && !num2) return
+
+    if (operator === '+') {
+        display = Number(num1) + Number(num2)
+    } else if (operator === '-') {
+        display = Number(num1) - Number(num2)
+    } else if (operator === '*') {
+        if (num1 === '0' || num2 === '0') {
+            display = 'Error'
+        } else {
+            display = Number(num1) * Number(num2)
+        }
+    } else {
+        if (num1 === '0' || num2 === '0') {
+            display = 'Error'
+        } else {
+            display = Number(num1) / Number(num2)
+        }
+    }
+    num1 = display.toString()
+    console.log('num1 after result', num1)
+
+    updateScreen()
+}
+
+const updateScreen = () => {
+    if (num1 && !operator && !num2) {
+        display = num1
+    } else if (num1 && operator && !num2) {
+        display = num1 + operator
+    } else if (num1 && operator && num2) {
+        display = num1
+    }
+    calcScreen.textContent = display
 }
 
 const resetBtn = () => {
     num1 = '';
     num2 = '';
     operator = '';
-    result = '';
+    display = '';
     calcScreen.textContent = 0;
 }
 
-// const deleteBtn = () => {
-//     if (num2) {
-//         result -= num2.slice(0, -1)
-//     } else if (operator) {
-//         operator = ''
-//         result = num1
-//     } else {
-//         num1 = num1.substring(0, num1.length - 1)
-//         result -= num1
-//     }
-//     calcScreen.textContent = result
-// }
 
 // Event Listeners
 
@@ -117,6 +145,3 @@ equalToBtn.addEventListener('click', evaluateResult)
 
 // Reset
 resetButton.addEventListener('click', resetBtn)
-
-// Delete
-// deleteButton.addEventListener('click', deleteBtn)
