@@ -11,7 +11,8 @@ const deleteButton = document.getElementById('del')
 // Variables
 let num1;
 let num2;
-let num3;
+let lastOperator;
+let lastNum2;
 let operator;
 let display = '';
 
@@ -48,9 +49,8 @@ const num1Selector = (event) => {
 
 const operatorSelector = (event) => {
     if (!num1) return
-    
+    num2 = ''
     operator = event.target.id
-    display = num1 + operator
     console.log('operator:', operator)
     updateScreen()
 }
@@ -76,29 +76,59 @@ const num2Selector = (event) => {
 }
 
 const evaluateResult = () => {
-    if (num1 && operator && !num2 || !num1 && !operator && !num2) return
+    if  (num1 && operator && !num2 ||
+        !num1 && !operator && !num2) return
 
-    if (operator === '+') {
-        display = Number(num1) + Number(num2)
-    } else if (operator === '-') {
-        display = Number(num1) - Number(num2)
-    } else if (operator === '*') {
-        if (num1 === '0' || num2 === '0') {
-            display = 'Error'
+    if (lastOperator && lastNum2) {
+
+        if (lastOperator === '+') {
+            display = Number(num1) + Number(lastNum2)
+        } else if (lastOperator === '-') {
+            display = Number(num1) - Number(lastNum2)
+        } else if (lastOperator === '*') {
+            if (num1 === '0' || lastNum2 === '0') {
+                display = 'Error'
+            } else {
+                display = Number(num1) * Number(lastNum2)
+            }
         } else {
-            display = Number(num1) * Number(num2)
+            if (num1 === '0' || lastNum2 === '0') {
+                display = 'Error'
+            } else {
+                display = Number(num1) / Number(lastNum2)
+            }
         }
     } else {
-        if (num1 === '0' || num2 === '0') {
-            display = 'Error'
+
+        if (operator === '+') {
+            display = Number(num1) + Number(num2)
+        } else if (operator === '-') {
+            display = Number(num1) - Number(num2)
+        } else if (operator === '*') {
+            if (num1 === '0' || num2 === '0') {
+                display = 'Error'
+            } else {
+                display = Number(num1) * Number(num2)
+            }
         } else {
-            display = Number(num1) / Number(num2)
+            if (num1 === '0' || num2 === '0') {
+                display = 'Error'
+            } else {
+                display = Number(num1) / Number(num2)
+            }
         }
     }
+        
     num1 = display.toString()
+    lastOperator = operator || lastOperator
+    lastNum2 = num2 || lastNum2
+    calcScreen.textContent = num1
+    num2 = ''
+    operator = ''
     console.log('num1 after result', num1)
+    console.log('previos op', lastOperator)
+    console.log('previos num2', lastNum2)
 
-    updateScreen()
 }
 
 const updateScreen = () => {
@@ -107,7 +137,7 @@ const updateScreen = () => {
     } else if (num1 && operator && !num2) {
         display = num1 + operator
     } else if (num1 && operator && num2) {
-        display = num1
+        display = num1 + operator + num2
     }
     calcScreen.textContent = display
 }
