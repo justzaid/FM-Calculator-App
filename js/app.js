@@ -13,6 +13,7 @@ let num1;
 let num2;
 let lastOperator;
 let lastNum2;
+let previousCalc = false;
 let operator;
 let display = '';
 
@@ -28,27 +29,36 @@ const numberSelectors = (event) => {
 }
 
 const num1Selector = (event) => {
-    if (!num1) {
+    if (!num1 || num1 === 'Error' || previousCalc) {
         if (event.target.id === '.') {
             num1 = `0.`
         } else {
         num1 = event.target.id
         console.log('num1:', num1)
         }
+        previousCalc = false;
     } else {
         if (num1.includes('.') && event.target.id === '.') {
             return
         } else {
-            num1 += event.target.id
-            console.log('num1:', num1)
+            if (num1 === '0') {
+                num1 = event.target.id
+            } else {
+                num1 += event.target.id
+                console.log('num1:', num1)
+            }
         }
     }
-    display = num1
     updateScreen()
 }
 
 const operatorSelector = (event) => {
     if (!num1) return
+    if (previousCalc) {
+        previousCalc = false;
+        lastNum2 = '';
+        lastOperator = ''
+    }
     num2 = ''
     operator = event.target.id
     console.log('operator:', operator)
@@ -70,64 +80,44 @@ const num2Selector = (event) => {
         }
     }
     console.log('num2:', num2)
-    display = num1 + operator + num2
-    console.log('display:', display)
     updateScreen()
 }
 
 const evaluateResult = () => {
-    if  (num1 && operator && !num2 ||
-        !num1 && !operator && !num2) return
-
-    if (lastOperator && lastNum2) {
-
-        if (lastOperator === '+') {
-            display = Number(num1) + Number(lastNum2)
-        } else if (lastOperator === '-') {
-            display = Number(num1) - Number(lastNum2)
-        } else if (lastOperator === '*') {
-            if (num1 === '0' || lastNum2 === '0') {
-                display = 'Error'
-            } else {
-                display = Number(num1) * Number(lastNum2)
-            }
-        } else {
-            if (num1 === '0' || lastNum2 === '0') {
-                display = 'Error'
-            } else {
-                display = Number(num1) / Number(lastNum2)
-            }
-        }
+    let numToUse = num2 || lastNum2 || num1;
+    let operatorToUse = operator || lastOperator;
+    if (!num1) return
+    if (!operatorToUse || !numToUse) {
+        return
     } else {
-
-        if (operator === '+') {
-            display = Number(num1) + Number(num2)
-        } else if (operator === '-') {
-            display = Number(num1) - Number(num2)
-        } else if (operator === '*') {
-            if (num1 === '0' || num2 === '0') {
-                display = 'Error'
-            } else {
-                display = Number(num1) * Number(num2)
-            }
+        if (operatorToUse === '+') {
+            display = Number(num1) + Number(numToUse)
+        } else if (operatorToUse === '-') {
+            display = Number(num1) - Number(numToUse)
+        } else if (operatorToUse === '*') {
+            display = Number(num1) * Number(numToUse)
         } else {
-            if (num1 === '0' || num2 === '0') {
+            if (numToUse === '0') {
                 display = 'Error'
             } else {
-                display = Number(num1) / Number(num2)
+                display = Number(num1) / Number(numToUse)
             }
-        }
+        }        
     }
         
+
     num1 = display.toString()
-    lastOperator = operator || lastOperator
-    lastNum2 = num2 || lastNum2
+    lastOperator = operatorToUse
+    lastNum2 = numToUse
+    previousCalc = true;
     calcScreen.textContent = num1
     num2 = ''
     operator = ''
     console.log('num1 after result', num1)
     console.log('previos op', lastOperator)
     console.log('previos num2', lastNum2)
+    console.log(numToUse)
+    console.log(operatorToUse)
 
 }
 
@@ -139,13 +129,25 @@ const updateScreen = () => {
     } else if (num1 && operator && num2) {
         display = num1 + operator + num2
     }
-    calcScreen.textContent = display
+
+    
+    if (display.length >= 15) {
+        // limitedDisplay = display.slice(0, 10)
+        // calcScreen.textContent = limitedDisplay
+        calcScreen.style.fontSize = '29px'
+    } else {
+        console.log('display:', display)
+        calcScreen.textContent = display
+    }
+
 }
 
 const resetBtn = () => {
     num1 = '';
     num2 = '';
+    lastNum2 = '';
     operator = '';
+    lastOperator = '';
     display = '';
     calcScreen.textContent = 0;
 }
@@ -175,3 +177,7 @@ equalToBtn.addEventListener('click', evaluateResult)
 
 // Reset
 resetButton.addEventListener('click', resetBtn)
+
+calcScreen.addEventListener('keydown', (event) => {
+    calcScreen.textContent = event.key
+})
