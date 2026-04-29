@@ -34,7 +34,6 @@ const num1Selector = (event) => {
             num1 = `0.`;
         } else {
             num1 = event.target.id;
-            console.log("num1:", num1);
         }
         previousCalc = false;
     } else {
@@ -45,7 +44,6 @@ const num1Selector = (event) => {
                 num1 = event.target.id;
             } else {
                 num1 += event.target.id;
-                console.log("num1:", num1);
             }
         }
     }
@@ -61,7 +59,6 @@ const operatorSelector = (event) => {
     }
     num2 = "";
     operator = event.target.id;
-    console.log("operator:", operator);
     updateScreen();
 };
 
@@ -79,7 +76,6 @@ const num2Selector = (event) => {
             num2 += event.target.id;
         }
     }
-    console.log("num2:", num2);
     updateScreen();
 };
 
@@ -115,12 +111,6 @@ const evaluateResult = () => {
     calcScreen.textContent = num1.toExponential(1)
 
     checkLength();
-    
-    console.log("num1 after result", num1);
-    console.log("previos op", lastOperator);
-    console.log("previos num2", lastNum2);
-    console.log(numToUse);
-    console.log(operatorToUse);
 };
 
 const updateScreen = () => {
@@ -141,6 +131,8 @@ const checkScreenSize = () => {
         display = display.slice(0, 14);
     } else if (window.outerWidth <= 768 && display.length >= 28) {
         display = display.slice(0, 28);
+    } else if (window.outerWidth >= 1440 && display.length >= 13) {
+        display = display.slice(0, 13);
     }
     calcScreen.textContent = display;
 };
