@@ -125,21 +125,17 @@ const updateScreen = () => {
 };
 
 const checkScreenSize = () => {
-    if (window.outerWidth >= 375 && window.outerWidth <= 425 && display.length >= 12) {
+    if (window.outerWidth >= 375 && display.length >= 12) {
         display = display.slice(0, 12);
-    } else if (window.outerWidth >= 425 && window.outerWidth <= 768 && display.length >= 14) {
+    } else if (window.outerWidth >= 425 && display.length >= 14) {
         display = display.slice(0, 14);
-    } else if (window.outerWidth <= 768 && display.length >= 28) {
-        display = display.slice(0, 28);
-    } else if (window.outerWidth >= 1440 && display.length >= 13) {
-        display = display.slice(0, 13);
     }
     calcScreen.textContent = display;
 };
 
 const checkLength = () => {
     if (num1.toString().length >= 12 && window.outerWidth >= 375 && window.outerWidth <= 425 ||
-        num1.toString().length >= 14 && window.outerWidth >= 425 && window.outerWidth <= 728 ) {
+        num1.toString().length >= 14 && window.outerWidth >= 425) {
             num1 = num1.toExponential(1)
         }
     num1 = num1.toString()

@@ -355,6 +355,16 @@ main {
         background-color: hsl(222, 26%, 31%);
     }
     main {
+        max-width: 50%;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 1440px) {
+    body {
+        background-color: hsl(222, 26%, 31%);
+    }
+    main {
         max-width: 25%;
         margin: 0 auto;
     }
